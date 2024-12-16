@@ -16,9 +16,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from transformer.transformer_utils.log_uniform_sampler import LogUniformSampler
-from transformer.transformer_utils.log_uniform_sampler import sample_logits
-from transformer.transformer_utils.proj_adaptive_softmax import ProjectedAdaptiveLogSoftmax
+from related.baselines.transformer.transformer_utils.log_uniform_sampler import LogUniformSampler
+from related.baselines.transformer.transformer_utils.log_uniform_sampler import sample_logits
+from related.baselines.transformer.transformer_utils.proj_adaptive_softmax import ProjectedAdaptiveLogSoftmax
 
 
 # @torch.jit.script

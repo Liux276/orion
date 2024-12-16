@@ -12,10 +12,10 @@ If the user does not want to use this image, then please follow these steps:
     * Apply a patch of changes for Orion: `git apply orion-torch-changes.patch`
     * `git submodule sync`
     * `git submodule update --init --recursive --jobs 0`
-    * `python3.8 setup.py develop`
+    * `python setup.py develop`
 
 * Install Torchvision from source:
     * `git clone https://github.com/pytorch/vision.git`
     * `cd vision`
     * `git reset --hard da3794e90c7cf69348f5446471926729c55f243e`
-    * `python3.8 setup.py develop`
+    * `python setup.py develop`

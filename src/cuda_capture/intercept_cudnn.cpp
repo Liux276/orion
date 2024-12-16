@@ -3,7 +3,7 @@
 #include "intercept_temp.h"
 
 
-cudnnStatus_t cudnnConvolutionForward(cudnnHandle_t handle, const void *alpha, const cudnnTensorDescriptor_t xDesc, const void *x, const cudnnFilterDescriptor_t wDesc, const void *w, const cudnnConvolutionDescriptor_t convDesc, cudnnConvolutionFwdAlgo_t algo, void *workSpace, size_t workSpaceSizeInBytes, const void *beta, const cudnnTensorDescriptor_t yDesc, void *y) {
+extern "C" cudnnStatus_t cudnnConvolutionForward(cudnnHandle_t handle, const void *alpha, const cudnnTensorDescriptor_t xDesc, const void *x, const cudnnFilterDescriptor_t wDesc, const void *w, const cudnnConvolutionDescriptor_t convDesc, cudnnConvolutionFwdAlgo_t algo, void *workSpace, size_t workSpaceSizeInBytes, const void *beta, const cudnnTensorDescriptor_t yDesc, void *y) {
 
 
 	int idx = get_idx();
@@ -61,7 +61,7 @@ cudnnStatus_t cudnnConvolutionForward(cudnnHandle_t handle, const void *alpha, c
 
 }
 
-cudnnStatus_t cudnnBatchNormalizationForwardTrainingEx(cudnnHandle_t handle, cudnnBatchNormMode_t mode, cudnnBatchNormOps_t bnOps, const void *alpha, const void *beta, const cudnnTensorDescriptor_t xDesc, const void *xData, const cudnnTensorDescriptor_t zDesc,  const void *zData, const cudnnTensorDescriptor_t yDesc, void *yData, const cudnnTensorDescriptor_t bnScaleBiasMeanVarDesc, const void *bnScaleData, const void *bnBiasData, double exponentialAverageFactor, void *resultRunningMeanData, void *resultRunningVarianceData, double epsilon, void *saveMean, void *saveInvVariance, const cudnnActivationDescriptor_t activationDesc,  void *workspace, size_t workSpaceSizeInBytes, void *reserveSpace, size_t reserveSpaceSizeInBytes) {
+extern "C" cudnnStatus_t cudnnBatchNormalizationForwardTrainingEx(cudnnHandle_t handle, cudnnBatchNormMode_t mode, cudnnBatchNormOps_t bnOps, const void *alpha, const void *beta, const cudnnTensorDescriptor_t xDesc, const void *xData, const cudnnTensorDescriptor_t zDesc,  const void *zData, const cudnnTensorDescriptor_t yDesc, void *yData, const cudnnTensorDescriptor_t bnScaleBiasMeanVarDesc, const void *bnScaleData, const void *bnBiasData, double exponentialAverageFactor, void *resultRunningMeanData, void *resultRunningVarianceData, double epsilon, void *saveMean, void *saveInvVariance, const cudnnActivationDescriptor_t activationDesc,  void *workspace, size_t workSpaceSizeInBytes, void *reserveSpace, size_t reserveSpaceSizeInBytes) {
 
 	int idx = get_idx();
 	assert (idx >= 0);
@@ -128,7 +128,7 @@ cudnnStatus_t cudnnBatchNormalizationForwardTrainingEx(cudnnHandle_t handle, cud
 }
 
 
-cudnnStatus_t cudnnBatchNormalizationForwardInference(cudnnHandle_t handle, cudnnBatchNormMode_t mode, const void *alpha, const void *beta, const cudnnTensorDescriptor_t xDesc, const void *x, const cudnnTensorDescriptor_t yDesc, void *y, const cudnnTensorDescriptor_t bnScaleBiasMeanVarDesc, const void *bnScale, const void *bnBias, const void *estimatedMean, const void *estimatedVariance, double epsilon)
+extern "C" cudnnStatus_t cudnnBatchNormalizationForwardInference(cudnnHandle_t handle, cudnnBatchNormMode_t mode, const void *alpha, const void *beta, const cudnnTensorDescriptor_t xDesc, const void *x, const cudnnTensorDescriptor_t yDesc, void *y, const cudnnTensorDescriptor_t bnScaleBiasMeanVarDesc, const void *bnScale, const void *bnBias, const void *estimatedMean, const void *estimatedVariance, double epsilon)
 
 {
 
@@ -186,7 +186,7 @@ cudnnStatus_t cudnnBatchNormalizationForwardInference(cudnnHandle_t handle, cudn
 }
 
 
-cudnnStatus_t cudnnRNNForwardInference(cudnnHandle_t handle, const cudnnRNNDescriptor_t rnnDesc, const int seqLength, const cudnnTensorDescriptor_t *xDesc, const void *x, const cudnnTensorDescriptor_t hxDesc, const void *hx, const cudnnTensorDescriptor_t cxDesc, const void *cx, const cudnnFilterDescriptor_t wDesc, const void *w, const cudnnTensorDescriptor_t *yDesc, void *y, const cudnnTensorDescriptor_t hyDesc, void *hy, const cudnnTensorDescriptor_t cyDesc, void *cy, void *workspace, size_t workSpaceSizeInBytes)  {
+extern "C" cudnnStatus_t cudnnRNNForwardInference(cudnnHandle_t handle, const cudnnRNNDescriptor_t rnnDesc, const int seqLength, const cudnnTensorDescriptor_t *xDesc, const void *x, const cudnnTensorDescriptor_t hxDesc, const void *hx, const cudnnTensorDescriptor_t cxDesc, const void *cx, const cudnnFilterDescriptor_t wDesc, const void *w, const cudnnTensorDescriptor_t *yDesc, void *y, const cudnnTensorDescriptor_t hyDesc, void *hy, const cudnnTensorDescriptor_t cyDesc, void *cy, void *workspace, size_t workSpaceSizeInBytes)  {
 
 	int idx = get_idx();
 	assert (idx >= 0);
@@ -253,7 +253,7 @@ cudnnStatus_t cudnnRNNForwardInference(cudnnHandle_t handle, const cudnnRNNDescr
 }
 
 
-cudnnStatus_t cudnnRNNForwardTraining(
+extern "C" cudnnStatus_t cudnnRNNForwardTraining(
 	cudnnHandle_t handle,
 	const cudnnRNNDescriptor_t rnnDesc,
 	const int seqLength,
@@ -341,7 +341,7 @@ cudnnStatus_t cudnnRNNForwardTraining(
 
 // backward
 
-cudnnStatus_t cudnnBatchNormalizationBackwardEx (
+extern "C" cudnnStatus_t cudnnBatchNormalizationBackwardEx (
     cudnnHandle_t handle,
     cudnnBatchNormMode_t mode,
     cudnnBatchNormOps_t bnOps,
@@ -479,7 +479,7 @@ cudnnStatus_t cudnnBatchNormalizationBackwardEx (
 	return status;
 }
 
-cudnnStatus_t cudnnConvolutionBackwardData(
+extern "C" cudnnStatus_t cudnnConvolutionBackwardData(
     cudnnHandle_t handle,
     const void *alpha,
     const cudnnFilterDescriptor_t wDesc,
@@ -557,7 +557,7 @@ cudnnStatus_t cudnnConvolutionBackwardData(
 	return status;
 }
 
-cudnnStatus_t cudnnConvolutionBackwardFilter(
+extern "C" cudnnStatus_t cudnnConvolutionBackwardFilter(
     cudnnHandle_t handle,
     const void *alpha,
     const cudnnTensorDescriptor_t xDesc,
@@ -640,40 +640,40 @@ cudnnStatus_t cudnnConvolutionBackwardFilter(
 }
 
 
-cudnnStatus_t cudnnDestroyActivationDescriptor(cudnnActivationDescriptor_t activationDesc) {
+extern "C" cudnnStatus_t cudnnDestroyActivationDescriptor(cudnnActivationDescriptor_t activationDesc) {
 	return CUDNN_STATUS_SUCCESS;
 }
 
-cudnnStatus_t cudnnDestroyRNNDescriptor(cudnnRNNDescriptor_t rnnDesc) {
-
-	return CUDNN_STATUS_SUCCESS;
-}
-
-cudnnStatus_t cudnnDestroyTensorDescriptor(cudnnTensorDescriptor_t tensorDesc) {
+extern "C" cudnnStatus_t cudnnDestroyRNNDescriptor(cudnnRNNDescriptor_t rnnDesc) {
 
 	return CUDNN_STATUS_SUCCESS;
 }
 
-
-cudnnStatus_t cudnnDestroyFilterDescriptor(cudnnFilterDescriptor_t filterDesc) {
-
-	return CUDNN_STATUS_SUCCESS;
-
-}
-
-
-cudnnStatus_t cudnnDestroyConvolutionDescriptor(cudnnConvolutionDescriptor_t convDesc) {
+extern "C" cudnnStatus_t cudnnDestroyTensorDescriptor(cudnnTensorDescriptor_t tensorDesc) {
 
 	return CUDNN_STATUS_SUCCESS;
 }
 
-cudnnStatus_t cudnnDestroyDropoutDescriptor(cudnnDropoutDescriptor_t dropoutDesc) {
+
+extern "C" cudnnStatus_t cudnnDestroyFilterDescriptor(cudnnFilterDescriptor_t filterDesc) {
+
 	return CUDNN_STATUS_SUCCESS;
 
 }
 
 
-cudnnStatus_t cudnnDestroy(cudnnHandle_t handle) {
+extern "C" cudnnStatus_t cudnnDestroyConvolutionDescriptor(cudnnConvolutionDescriptor_t convDesc) {
+
+	return CUDNN_STATUS_SUCCESS;
+}
+
+extern "C" cudnnStatus_t cudnnDestroyDropoutDescriptor(cudnnDropoutDescriptor_t dropoutDesc) {
+	return CUDNN_STATUS_SUCCESS;
+
+}
+
+
+extern "C" cudnnStatus_t cudnnDestroy(cudnnHandle_t handle) {
 
 	return CUDNN_STATUS_SUCCESS;
 }

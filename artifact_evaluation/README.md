@@ -72,12 +72,12 @@ please do
 
 ## Run a simple example
 
-* `LD_PRELOAD="/root/orion/src/cuda_capture/libinttemp.so" python benchmarking/launch_jobs.py --algo orion --config_file /root/orion/artifact_evaluation/example/config.json`
+* `LD_PRELOAD="~/orion/src/cuda_capture/libinttemp.so" python benchmarking/launch_jobs.py --algo orion --config_file ~/orion/artifact_evaluation/example/config.json`
 
 ## Configuration files
 
 * The current API of Orion expects as input a `json` file, like the ones in  `orion/artifact_evaluation/fig7/config_files`.
-The number of entries in the json file represent the number of clients (e.g. 2 clients in `orion/artifact_evaluation/fig7/config_files/bert_mnet.json`, 1 client in `/root/orion/artifact_evaluation/example/config.json`).
+The number of entries in the json file represent the number of clients (e.g. 2 clients in `orion/artifact_evaluation/fig7/config_files/bert_mnet.json`, 1 client in `/data1/home/jiangjz/code/orion_lx/artifact_evaluation/example/config.json`).
 The information required for each client is:
 
 * `arch`: The submitted model

@@ -12,7 +12,7 @@ for (model, f) in trace_files_hp:
             print(model, run, flush=True)
             # run
             file_path = f"config_files/ideal/{f}_inf.json"
-            os.system(f"LD_PRELOAD='{os.path.expanduser( '~' )}/orion/src/cuda_capture/libinttemp.so' python3.8 ../../benchmarking/launch_jobs.py --algo orion --config_file {file_path}")
+            os.system(f"LD_PRELOAD='{os.path.expanduser( '~' )}/orion/src/cuda_capture/libinttemp.so' python ../../benchmarking/launch_jobs.py --algo orion --config_file {file_path}")
 
             # copy results
             os.system(f"cp client_0.json results/ideal/{model}_{run}_hp.json")

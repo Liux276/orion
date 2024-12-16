@@ -13,7 +13,7 @@ sys.path.append(f"{home_directory}/DeepLearningExamples/PyTorch/LanguageModeling
 sys.path.append(f"{home_directory}/DeepLearningExamples/PyTorch/LanguageModeling/Transformer-XL/pytorch/utils")
 from benchmark_suite.transformer_trainer import transformer_loop
 sys.path.append(f"{home_directory}/DeepLearningExamples/PyTorch/LanguageModeling/BERT")
-from bert_trainer import bert_loop
+from benchmark_suite.bert_trainer_mock_torch import bert_loop
 
 from benchmark_suite.train_imagenet import imagenet_loop
 from benchmark_suite.toy_models.bnorm_trainer import bnorm_loop

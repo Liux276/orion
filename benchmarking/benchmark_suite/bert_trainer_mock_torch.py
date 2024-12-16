@@ -2,9 +2,9 @@ import torch
 import threading
 import time
 import numpy as np
-import modeling
+import related.baselines.bert.modeling
 
-from optimization import BertAdam
+from related.baselines.bert.optimization import BertAdam
 
 class DummyDataLoader():
     def __init__(self, batchsize):

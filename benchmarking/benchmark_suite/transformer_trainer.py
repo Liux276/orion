@@ -1,9 +1,12 @@
 import torch
 import threading
 import time
+import sys
+import os
 
-from mem_transformer import MemTransformerLM
-import lamb
+
+from related.baselines.transformer.mem_transformer import MemTransformerLM
+import related.baselines.transformer.lamb
 import numpy as np
 from ctypes import *
 import os
