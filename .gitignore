@@ -16,3 +16,4 @@ benchmarking/eval/*
 benchmarking/results/*
 results
 .vscode/
+nsys/
