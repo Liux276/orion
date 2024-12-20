@@ -1,0 +1,16 @@
+[
+    {
+		"arch": "resnet101",
+		"kernel_file": "/data1/home/jiangjz/code/orion_lx/benchmarking/model_kernels/resnet101_4_fwd",
+		"num_kernels": 345,
+		"num_iters": 600,
+		"args": {
+			"model_name": "resnet101",
+			"batchsize": 4,
+            "rps": 100,
+			"uniform": true,
+			"dummy_data": true,
+			"train": false
+		}
+	}
+]
