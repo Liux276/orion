@@ -18,12 +18,12 @@
     * Apply a patch of changes for Orion: `git apply orion-torch-changes.patch`
     * `git submodule sync`
     * `git submodule update --init --recursive --jobs 0`
-    * `python setup.py develop`
+    * `python -m pip install -e . --no-build-isolation` or `python setup.py develop`
 3. Install Torchvision from source:
     * `git clone https://github.com/pytorch/vision.git`
     * `cd vision`
     * `git reset --hard da3794e90c7cf69348f5446471926729c55f243e`
-    * `python setup.py develop`
+    * `python -m pip install -e . --no-build-isolation` or `python setup.py develop`
 4. Download the Orion repo and install:
     * `git clone http://github.com/Liux276/orion.git`
     * `cd orion`
