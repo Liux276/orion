@@ -123,4 +123,4 @@ class ConcurrentSyncInfo(BasicSyncInfo):
         if tid == 0:
             return super().should_continue_loop(tid, current_iteration, total_iterations)
         else:
-            return not self.stop_signal.is_set()
+            return ((not self.stop_signal.is_set()) and super().should_continue_loop(tid, current_iteration, total_iterations))

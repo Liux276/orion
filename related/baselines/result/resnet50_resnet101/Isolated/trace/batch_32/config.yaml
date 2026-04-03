@@ -1,0 +1,28 @@
+---
+policy: "Isolated" # "MPS", "TickTock", "Streams", "Isolated", or "Sequential"
+models:
+  model0:
+    mode: eval
+    name: resnet101
+  model1:
+    mode: eval
+    name: resnet50
+
+shared_config:
+  distribution: trace # only controls HP
+  trace_path: './inter_arrival_times.json'
+  pin_memory: true
+  seed: 42
+
+# configuration for each model
+resnet101:
+  arch: resnet101
+  batch_size: 32
+  num_iterations: 200
+  request_rate: 15
+
+resnet50:
+  arch: resnet50
+  batch_size: 32
+  num_iterations: 200
+  request_rate: 20

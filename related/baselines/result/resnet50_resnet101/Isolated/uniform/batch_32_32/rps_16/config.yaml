@@ -1,0 +1,27 @@
+---
+policy: "Isolated" # "MPS", "TickTock", "Streams", "Isolated", or "Sequential"
+models:
+  model0:
+    mode: eval
+    name: resnet101
+  model1:
+    mode: eval
+    name: resnet50
+
+shared_config:
+  distribution: uniform # only controls HP
+  trace_path: '/data1/home/jiangjz/code/orion_lx/related/baselines/inter_arrival_times.json'
+  pin_memory: true
+  seed: 42
+
+resnet101:
+  arch: resnet101
+  batch_size: 32
+  num_iterations: 500
+  request_rate: 15
+
+resnet50:
+  arch: resnet50
+  batch_size: 32
+  num_iterations: 500
+  request_rate: 16

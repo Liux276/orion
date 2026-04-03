@@ -32,7 +32,8 @@ def measure(func, num_requests, num_warm_up_reqs, request_rate, tid, shared_conf
     and finally write all data via {sync_info}.
     """
     distribution = shared_config['distribution']
-    if distribution=='trace' and tid==1:
+    # if distribution=='trace' and tid==1:
+    if tid==0:
         # uniform distribution for tid 1
         distribution = 'uniform'
 
@@ -43,7 +44,6 @@ def measure(func, num_requests, num_warm_up_reqs, request_rate, tid, shared_conf
         if distribution == 'trace':
             with open(shared_config['trace_path']) as f:
                 intervals = json.load(f)
-            num_requests = len(intervals)
         elif distribution == 'poisson':
             intervals = random.exponential(scale=scale, size=(num_requests,))
         elif distribution == 'uniform':
@@ -58,25 +58,23 @@ def measure(func, num_requests, num_warm_up_reqs, request_rate, tid, shared_conf
         next_startup = time.time()
         iteration = 0
         while True:
+            
             if time.time() >= next_startup:
                 if iteration == num_warm_up_reqs:
                     sync_info.pre_measurement_prep(tid)
                     entire_inference_start_time = time.time()
-                    # reset next_startup to have clear setup
                     next_startup = entire_inference_start_time
-
                 with torch.cuda.stream(stream):
                     func()
                 stream.synchronize()
                 latency_history.append(1000 * (time.time() - next_startup))
-
                 if not sync_info.should_continue_loop(tid, iteration, num_requests):
                     break
-
+                
                 next_startup += intervals[iteration]
 
                 duration = next_startup - time.time()
-
+                print(f'tid {tid} iteration {iteration} next_startup: {next_startup} ms duration: {duration} ms')
                 if duration > 0:
                     time.sleep(duration)
                 iteration += 1
@@ -99,6 +97,7 @@ def measure(func, num_requests, num_warm_up_reqs, request_rate, tid, shared_conf
     for idx, percentile_pos in enumerate(percentile_positions):
         data_to_record[f'p{percentile_pos}-latency-{tid}'] = percentiles[idx]
         data_to_record[f'throughput-{tid}'] = (iteration-num_warm_up_reqs)/inference_duration
+        data_to_record[f'mean-latency-{tid}'] = mean_latency
     # write all data to the data file
     sync_info.write_kvs(data_to_record)
 

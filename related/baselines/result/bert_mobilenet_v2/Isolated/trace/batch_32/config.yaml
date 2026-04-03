@@ -1,0 +1,28 @@
+---
+policy: "Isolated" # "MPS", "TickTock", "Streams", "Isolated", or "Sequential"
+models:
+  model0:
+    mode: eval
+    name: mobilenet_v2
+  model1:
+    mode: eval
+    name: bert
+
+shared_config:
+  distribution: trace # only controls HP
+  trace_path: './inter_arrival_times.json'
+  pin_memory: true
+  seed: 42
+
+# configuration for each model
+mobilenet_v2:
+  arch: mobilenet_v2
+  batch_size: 32
+  num_iterations: 200
+  request_rate: 60
+
+bert:
+  arch: base
+  batch_size: 32
+  num_iterations: 200
+  request_rate: 2

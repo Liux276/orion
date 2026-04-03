@@ -1,0 +1,27 @@
+---
+policy: "Sequential" # "MPS", "TickTock", "Streams", "Isolated", or "Sequential"
+models:
+  model0:
+    mode: eval
+    name: mobilenet_v2
+  model1:
+    mode: eval
+    name: resnet50
+
+shared_config:
+  distribution: uniform # only controls HP
+  trace_path: '/data1/home/jiangjz/code/orion_lx/related/baselines/inter_arrival_times.json'
+  pin_memory: true
+  seed: 42
+
+mobilenet_v2:
+  arch: mobilenet_v2
+  batch_size: 32
+  num_iterations: 500
+  request_rate: 60
+
+resnet50:
+  arch: resnet50
+  batch_size: 32
+  num_iterations: 500
+  request_rate: 4
