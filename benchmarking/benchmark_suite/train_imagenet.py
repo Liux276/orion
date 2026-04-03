@@ -18,6 +18,14 @@ import argparse
 import threading
 import json
 from ctypes import *
+from pathlib import Path
+
+
+def resolve_orion_root():
+    env_root = os.environ.get("ORION_ROOT", "").strip()
+    if env_root:
+        return Path(env_root).expanduser().resolve()
+    return Path(__file__).resolve().parents[2]
 
 def seed_everything(seed: int):
     import random, os
@@ -85,7 +93,9 @@ def imagenet_loop(
 
     seed_everything(42)
     print(model_name, batchsize, local_rank, barriers, tid)
-    backend_lib = cdll.LoadLibrary(os.path.expanduser('~') + "/orion/src/cuda_capture/libinttemp.so")
+    backend_lib = cdll.LoadLibrary(
+        str(resolve_orion_root() / "src" / "cuda_capture" / "libinttemp.so")
+    )
     if rps > 0 and input_file=='':
         if uniform:
             sleep_times = [1/rps]*num_iters
@@ -221,11 +231,15 @@ def imagenet_loop(
         timings = sorted(timings)
 
         if not train and len(timings)>0:
+            avg = np.mean(timings)
+            std = np.std(timings)
             p50 = np.percentile(timings, 50)
             p95 = np.percentile(timings, 95)
             p99 = np.percentile(timings, 99)
-            print(f"Client {tid} finished! p50: {p50} sec, p95: {p95} sec, p99: {p99} sec")
+            print(f"Client {tid} finished! p50: {p50} sec, p95: {p95} sec, p99: {p99} sec, avg: {avg} sec, std: {std} sec")
             data = {
+                'avg_latency': avg*1000,
+                'std': std*1000,
                 'p50_latency': p50*1000,
                 'p95_latency': p95*1000,
                 'p99_latency': p99*1000,

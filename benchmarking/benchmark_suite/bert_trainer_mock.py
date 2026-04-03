@@ -4,11 +4,17 @@ import time
 import modeling
 import numpy as np
 import json
-
-from optimization import BertAdam
-
+from related.baselines.bert.optimization import BertAdam
 from ctypes import *
 import os
+from pathlib import Path
+
+
+def resolve_orion_root():
+    env_root = os.environ.get("ORION_ROOT", "").strip()
+    if env_root:
+        return Path(env_root).expanduser().resolve()
+    return Path(__file__).resolve().parents[2]
 
 def seed_everything(seed: int):
     import random, os
@@ -46,16 +52,22 @@ def block(backend_lib, it):
 def check_stop(backend_lib):
     return backend_lib.stop()
 
-def bert_loop(batchsize, train, num_iters, rps, uniform, dummy_data, local_rank, barriers, client_barrier, tid):
+def bert_loop(model_name,batchsize, train, num_iters, rps, uniform, dummy_data, local_rank, barriers, client_barrier, tid,
+    input_file=''):
 
     seed_everything(42)
-    backend_lib = cdll.LoadLibrary(os.path.expanduser('~') + "/orion/src/cuda_capture/libinttemp.so")
+    backend_lib = cdll.LoadLibrary(
+        str(resolve_orion_root() / "src" / "cuda_capture" / "libinttemp.so")
+    )
 
-    if rps > 0:
+    if rps > 0 and input_file=='':
         if uniform:
             sleep_times = [1/rps]*num_iters
         else:
             sleep_times = np.random.exponential(scale=1/rps, size=num_iters)
+    elif input_file != '':
+        with open(input_file) as f:
+                sleep_times = json.load(f)
     else:
         sleep_times = [0]*num_iters
 
@@ -66,20 +78,33 @@ def bert_loop(batchsize, train, num_iters, rps, uniform, dummy_data, local_rank,
         
 
     if (not train):
-        model_config = {
-            "attention_probs_dropout_prob": 0.1,
-            "hidden_act": "gelu",
-            "hidden_dropout_prob": 0.1,
-            "hidden_size": 1024,
-            "initializer_range": 0.02,
-            "intermediate_size": 4096,
-            "max_position_embeddings": 512,
-            "num_attention_heads": 16,
-            "num_hidden_layers": 24,
-            "output_all_encoded_layers": False,
-            "type_vocab_size": 2,
-            "vocab_size": 30522
-        }
+        model_config =  {
+        "attention_probs_dropout_prob": 0.1,
+        "hidden_act": "gelu",
+        "hidden_dropout_prob": 0.1,
+        "hidden_size": 768,
+        "initializer_range": 0.02,
+        "intermediate_size": 3072,
+        "max_position_embeddings": 512,
+        "num_attention_heads": 12,
+        "num_hidden_layers": 12,
+        "type_vocab_size": 2,
+        "vocab_size": 30522
+    }
+        # {
+        #     "attention_probs_dropout_prob": 0.1,
+        #     "hidden_act": "gelu",
+        #     "hidden_dropout_prob": 0.1,
+        #     "hidden_size": 1024,
+        #     "initializer_range": 0.02,
+        #     "intermediate_size": 4096,
+        #     "max_position_embeddings": 512,
+        #     "num_attention_heads": 16,
+        #     "num_hidden_layers": 24,
+        #     "output_all_encoded_layers": False,
+        #     "type_vocab_size": 2,
+        #     "vocab_size": 30522
+        # }
     else:
         model_config = {
             "attention_probs_dropout_prob": 0.1,
@@ -136,7 +161,6 @@ def bert_loop(batchsize, train, num_iters, rps, uniform, dummy_data, local_rank,
         start_iter = time.time()
                                 
         while batch_idx < num_iters:
-    
             if train:
                 print(f"Start iter {batch_idx}")
                 optimizer.zero_grad()
@@ -164,7 +188,6 @@ def bert_loop(batchsize, train, num_iters, rps, uniform, dummy_data, local_rank,
             else:
                 with torch.no_grad():
                     cur_time = time.time()
-                    #### OPEN LOOP ####
                     if open_loop:
                         if (cur_time >= next_startup):
                             print(f"Client {tid}, submit!, batch_idx is {batch_idx}")
@@ -213,10 +236,12 @@ def bert_loop(batchsize, train, num_iters, rps, uniform, dummy_data, local_rank,
     if not train and len(timings)>50:
         timings = timings[50:]
         timings = sorted(timings)
+        avg = np.mean(timings)
+        std = np.std(timings)
         p50 = np.percentile(timings, 50) * 1000
         p95 = np.percentile(timings, 95) * 1000
         p99 = np.percentile(timings, 99) * 1000
-        print(f"Client {tid} finished! p50: {p50} sec, p95: {p95} sec, p99: {p99} sec")
+        print(f"Client {tid} finished! p50: {p50} sec, p95: {p95} sec, p99: {p99} sec, avg: {avg} sec, std: {std} sec")
 
         data = {
             'p50_latency': p50,

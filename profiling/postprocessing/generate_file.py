@@ -53,9 +53,10 @@ while i < num_rows:
     #processed_kernel_names.append(x)
 
     x = x.replace("<unnamed>", "(anonymous namespace)")
-    print(x)
+    # print(x)
 
     if 'cudnn' in x and 'LSTM' not in x:
+        print("try to detect conv")
         print(x)
         if ('bn_fw' in x) or ('bn_bw' in x):
             processed_kernel_names.append(['BatchNorm', row['Roofline_prof'], 0, row["SM_needed"], row["Duration(ns)"]])
@@ -75,7 +76,7 @@ while i < num_rows:
             or ('xmma_cudnn::gemm::kernel' in x)
         ):
             conv_info.append([row["SM_needed"], row["Duration(ns)"], row["Roofline_prof"]])
-            print(conv_info)
+            # print(conv_info)
             sms = [x[0] for x in conv_info]
             dur_list = [x[1] for x in conv_info]
             profiles = [x[2] for x in conv_info]
@@ -96,13 +97,21 @@ while i < num_rows:
             or ('foldedNhwcToNhwcKernel' in x)
             or ('nhwcAddPaddingKernel' in x)
             or ('im2col4d_kernel' in x)
+            or ('cudnn::cnn::kern_precompute_indices' in x)
         ):
+            print("detect conv content")
+            print(x)
             # part of cudnn mm
             conv_info.append([row["SM_needed"], row["Duration(ns)"], row["Roofline_prof"]])
         else:
             processed_kernel_names.append([x,  row['Roofline_prof'], 0, row["SM_needed"], row["Duration(ns)"]])
-
-    elif ('sm80_xmma' in x or 'implicit_convolve_sgemm' in x):
+    elif ('kern_precompute_indices' in x):
+        conv_info.append([row["SM_needed"], row["Duration(ns)"], row["Roofline_prof"]])
+    elif (('sm80_xmma' in x) or ('implicit_convolve_sgemm' in x)
+    or ('precomputed_convolve_sgemm' in x)
+            or ('cutlass::Kernel' in x)
+            or ('cutlass_cudnn_infer' in x) or ('sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc' in x)
+            or ('sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw' in x)):
         conv_info.append([row["SM_needed"], row["Duration(ns)"], row["Roofline_prof"]])
         print(conv_info)
         sms = [x[0] for x in conv_info]

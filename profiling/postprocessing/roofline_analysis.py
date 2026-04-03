@@ -4,7 +4,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--results_dir', type=str, required=True,
                         help='path to directory containing the profiling files')
-parser.add_argument('--ai_threshold', type=float, default=9.72,
+parser.add_argument('--ai_threshold', type=float, default=26.15,
                         help='arithmetic intensity that seperates compute from memory bound kernels')
 args = parser.parse_args()
 
@@ -33,19 +33,31 @@ roofline_prof = [] # 1: comp, 0: mem, -1: invalid
 comp_bound = 0
 mem_bound = 0
 rest = 0
-
+if 'smsp__cycles_elapsed.avg.per_second [cycle/nsecond]'  not in df_raw.columns:
+    if 'smsp__cycles_elapsed.avg.per_second [Ghz]' in df_raw.columns:
+        df_raw['smsp__cycles_elapsed.avg.per_second [cycle/nsecond]'] = df_raw['smsp__cycles_elapsed.avg.per_second [Ghz]'] 
+    elif 'smsp__cycles_elapsed.avg.per_second [cycle/usecond]' in df_raw.columns:
+        # 如果只有 smsp__cycles_elapsed.avg.per_second [cycle/usecond] 字段，将其除以1000
+        df_raw['smsp__cycles_elapsed.avg.per_second [cycle/nsecond]'] = df_raw['smsp__cycles_elapsed.avg.per_second [cycle/usecond]'] / 1000
+    elif 'smsp__cycles_elapsed.avg.per_second [Mhz]' in df_raw.columns:    
+        df_raw['smsp__cycles_elapsed.avg.per_second [cycle/nsecond]'] = df_raw['smsp__cycles_elapsed.avg.per_second [Mhz]'] / 1000
+    else:
+        print("Required columns not found in the raw data.")
+        exit()
 for index, row in df_raw.iterrows():
     add = str(row[fadd])
     mul = str(row[fmul])
     fma = row[ffma]
     cycles = row[cycles_sec]
+    if bytes_sec not in df_raw.columns:
+        bytes_sec = 'dram__bytes.sum.per_second [Gbyte/s]'
     bytes = row[bytes_sec]
     #print(add, mul, fma, cycles, bytes)
 
     if not isinstance(fma, float):
-        fma = float(fma.replace("'", ''))
-    add = float(add.replace("'", ''))
-    mul = float(mul.replace("'", ''))
+        fma = float(fma.replace("'", '').replace(',', ''))
+    add = float(add.replace("'", '').replace(',', ''))
+    mul = float(mul.replace("'", '').replace(',', ''))
 
 
     if add or mul or fma:

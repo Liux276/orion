@@ -2,10 +2,12 @@ import torch
 import threading
 import time
 import numpy as np
-import related.baselines.bert.modeling
+import modeling
 
 from related.baselines.bert.optimization import BertAdam
 
+from ctypes import *
+import os
 class DummyDataLoader():
     def __init__(self, batchsize):
         self.batchsize = batchsize
@@ -21,9 +23,9 @@ class DummyDataLoader():
     def __next__(self):
         return self.input_ids, self.segment_ids, self.input_mask, self.start_positions, self.end_positions
 
-def bert_loop(batchsize, train, num_iters, default, rps, uniform, dummy_data, local_rank, start_barriers, end_barriers, tid):
+def bert_loop(model_name,batchsize, train, num_iters,  rps, uniform, dummy_data, local_rank, barriers, client_barrier, tid):
 
-    start_barriers[0].wait()
+    barriers[0].wait()
 
     if rps > 0:
         if uniform:
@@ -33,10 +35,7 @@ def bert_loop(batchsize, train, num_iters, default, rps, uniform, dummy_data, lo
     else:
         sleep_times = [0]*num_iters
 
-    if default:
-        s = torch.cuda.default_stream()
-    else:
-        s = torch.cuda.Stream()
+    s = torch.cuda.default_stream()
 
     if (not train):
         model_config = {
@@ -146,7 +145,7 @@ def bert_loop(batchsize, train, num_iters, default, rps, uniform, dummy_data, lo
                             if (batch_idx==10):
                                 starttime = time.time()
 
-    end_barriers[0].wait()
+    barriers[0].wait()
 
     if not train:
         timings = timings[2:]

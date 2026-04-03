@@ -1,9 +1,14 @@
 import torch
 import threading
 import time
-import modeling
+import sys
+import os
 
-from optimization import BertAdam
+sys.path.append(f"{os.path.expanduser( '~' )}/DeepLearningExamples/PyTorch/LanguageModeling/BERT")
+
+import modeling
+from optimization import BERTAdam
+
 
 def bert(batchsize, local_rank, do_eval=True, profile=True):
 
@@ -20,7 +25,6 @@ def bert(batchsize, local_rank, do_eval=True, profile=True):
         "type_vocab_size": 2,
         "vocab_size": 30522
     }
-
     config = modeling.BertConfig.from_dict(model_config)
     # Padding for divisibility by 8
     if config.vocab_size % 8 != 0:
@@ -49,7 +53,7 @@ def bert(batchsize, local_rank, do_eval=True, profile=True):
             {'params': [p for n, p in param_optimizer if not any(nd in n for nd in no_decay)], 'weight_decay': 0.01},
             {'params': [p for n, p in param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
         ]
-        optimizer = BertAdam(optimizer_grouped_parameters, lr=5e-5, warmup=0.1, t_total=100)
+        optimizer = BERTAdam(optimizer_grouped_parameters, lr=5e-5, warmup=0.1, t_total=100)
 
     batch_idx = 0
     torch.cuda.synchronize()
@@ -88,3 +92,4 @@ def bert(batchsize, local_rank, do_eval=True, profile=True):
 
 if __name__ == "__main__":
     bert(8, 0,False, 'nsys')
+

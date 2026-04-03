@@ -6,7 +6,12 @@
 *.o
 *.ncu-rep
 *.svg
+*.xlsx
+*.log
 *.png
+*.json
+*.nsys-rep
+*.qdstrm
 .DS_Store
 .idea/
 __pycache__/

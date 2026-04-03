@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=3 LD_PRELOAD=/data1/home/jiangjz/code/orion_lx/src/cuda_capture/libinttemp.so /data1/home/jiangjz/miniconda3/envs/orion/bin/python /data1/home/jiangjz/code/orion_lx/benchmarking/launch_jobs.py --algo orion --config_file /data1/home/jiangjz/code/orion_lx/benchmarking/benchmarking/result/orion/resnet50_resnet101/uniform/batch_32_32/rps_20/config.json

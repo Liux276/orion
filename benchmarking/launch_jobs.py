@@ -5,6 +5,7 @@ import time
 from ctypes import *
 import os
 import sys
+from pathlib import Path
 from torchvision import models
 import torch
 
@@ -13,7 +14,7 @@ sys.path.append(f"{home_directory}/DeepLearningExamples/PyTorch/LanguageModeling
 sys.path.append(f"{home_directory}/DeepLearningExamples/PyTorch/LanguageModeling/Transformer-XL/pytorch/utils")
 from benchmark_suite.transformer_trainer import transformer_loop
 sys.path.append(f"{home_directory}/DeepLearningExamples/PyTorch/LanguageModeling/BERT")
-from benchmark_suite.bert_trainer_mock_torch import bert_loop
+from benchmark_suite.bert_trainer_mock import bert_loop
 
 from benchmark_suite.train_imagenet import imagenet_loop
 from benchmark_suite.toy_models.bnorm_trainer import bnorm_loop
@@ -30,6 +31,13 @@ function_dict = {
     "bert": bert_loop,
     "transformer": transformer_loop,
 }
+
+
+def resolve_orion_root():
+    env_root = os.environ.get("ORION_ROOT", "").strip()
+    if env_root:
+        return Path(env_root).expanduser().resolve()
+    return Path(__file__).resolve().parents[1]
 
 def seed_everything(seed: int):
     import random, os
@@ -56,11 +64,12 @@ def launch_jobs(config_dict_list, input_args, run_eval):
     num_barriers = num_clients+1
     barriers = [threading.Barrier(num_barriers) for i in range(num_clients)]
     client_barrier = threading.Barrier(num_clients)
-    home_directory = os.path.expanduser( '~' )
+    print(run_eval)
+    orion_root = resolve_orion_root()
     if run_eval:
-        sched_lib = cdll.LoadLibrary(home_directory + "/orion/src/scheduler/scheduler_eval.so")
+        sched_lib = cdll.LoadLibrary(str(orion_root / "src" / "scheduler" / "scheduler_eval.so"))
     else:
-        sched_lib = cdll.LoadLibrary(home_directory + "/orion/src/scheduler/scheduler.so")
+        sched_lib = cdll.LoadLibrary(str(orion_root / "src" / "scheduler" / "scheduler.so"))
     py_scheduler = PyScheduler(sched_lib, num_clients)
 
     print(torch.__version__)
@@ -79,14 +88,12 @@ def launch_jobs(config_dict_list, input_args, run_eval):
         func = function_dict[config_dict['arch']]
         model_args = config_dict['args']
         model_args.update({"num_iters":num_iters[i], "local_rank": 0, "barriers": barriers, "client_barrier": client_barrier, "tid": i})
-
         thread = threading.Thread(target=func, kwargs=model_args)
         thread.start()
         tids.append(thread.native_id)
         threads.append(thread)
 
     print(tids)
-
     sched_thread = threading.Thread(
         target=py_scheduler.run_scheduler,
         args=(

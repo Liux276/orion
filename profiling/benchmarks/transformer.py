@@ -2,9 +2,9 @@ import torch
 import threading
 import time
 import sys
-
-sys.path.append(f"{os.path.expanduser( '~' )}/DeepLearningExamples/PyTorch/LanguageModeling/Transformer-XL/pytorch")
-
+import os
+# sys.path.append(f"{os.path.expanduser( '~' )}/DeepLearningExamples/PyTorch/LanguageModeling/Transformer-XL/pytorch")
+sys.path.append(f"{os.path.expanduser( '~' )}/code/orion_lx/related/baselines/transformer")
 from mem_transformer import MemTransformerLM
 import lamb
 
@@ -50,10 +50,10 @@ def transformer(batchsize, local_rank, do_eval=True, profile=None):
     batch_idx = 0
     mems = None
 
-    while batch_idx < 10:
+    while batch_idx < 20:
 
         start_iter = time.time()
-        if batch_idx == 0:
+        if batch_idx == 10:
             if profile == 'ncu':
                 torch.cuda.nvtx.range_push("start")
             elif profile == 'nsys':
@@ -69,7 +69,7 @@ def transformer(batchsize, local_rank, do_eval=True, profile=None):
             loss.backward()
             optimizer.step()
 
-        if batch_idx == 9:
+        if batch_idx == 19:
             if profile == 'ncu':
                 torch.cuda.nvtx.range_pop()
             elif profile == 'nsys':

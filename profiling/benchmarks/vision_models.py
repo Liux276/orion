@@ -54,10 +54,10 @@ def vision(model_name, batchsize, local_rank, do_eval=True, profile=None):
 
     batch_idx = 0
     torch.cuda.synchronize()
-    start = time.time()
+    start_all = time.time()
 
 
-    for batch_idx in range(1000): #batch in train_iter:
+    for batch_idx in range(100): #batch in train_iter:
 
         #data, target = batch[0].to(local_rank), batch[1].to(local_rank)
         start = time.time()

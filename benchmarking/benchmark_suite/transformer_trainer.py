@@ -3,6 +3,7 @@ import threading
 import time
 import sys
 import os
+from pathlib import Path
 
 
 from related.baselines.transformer.mem_transformer import MemTransformerLM
@@ -11,6 +12,13 @@ import numpy as np
 from ctypes import *
 import os
 import json
+
+
+def resolve_orion_root():
+    env_root = os.environ.get("ORION_ROOT", "").strip()
+    if env_root:
+        return Path(env_root).expanduser().resolve()
+    return Path(__file__).resolve().parents[2]
 
 def seed_everything(seed: int):
     import random, os
@@ -47,7 +55,9 @@ def transformer_loop(batchsize, train, num_iters, rps, uniform, dummy_data, loca
 
     seed_everything(42)
 
-    backend_lib = cdll.LoadLibrary(os.path.expanduser('~') + "/orion/src/cuda_capture/libinttemp.so")
+    backend_lib = cdll.LoadLibrary(
+        str(resolve_orion_root() / "src" / "cuda_capture" / "libinttemp.so")
+    )
 
     if rps > 0 and input_file=='':
         if uniform:

@@ -520,7 +520,7 @@ extern "C" {
 			op_info info = {v[0], stoi(v[1]), stoi(v[2]), stoi(v[3]), stof(v[4])};
 			ops.push_back(info);
 		}
-
+		
 		infile.close();
 
 	}
@@ -551,11 +551,17 @@ extern "C" {
 		bool reef
 	) {
 
-		struct passwd *pw = getpwuid(getuid());
-		char *homedir = pw->pw_dir;
-		char* lib_path = "/orion/src/cuda_capture/libinttemp.so";
+		const char* env_root = getenv("ORION_ROOT");
+		std::string lib_path;
+		if (env_root != NULL && strlen(env_root) > 0) {
+			lib_path = std::string(env_root) + "/src/cuda_capture/libinttemp.so";
+		} else {
+			struct passwd *pw = getpwuid(getuid());
+			char *homedir = pw->pw_dir;
+			lib_path = std::string(homedir) + "/orion/src/cuda_capture/libinttemp.so";
+		}
 
-		klib = dlopen(strcat(homedir, lib_path), RTLD_NOW | RTLD_GLOBAL);
+		klib = dlopen(lib_path.c_str(), RTLD_NOW | RTLD_GLOBAL);
 
 		if (!klib) {
 			fprintf(stderr, "Error: %s\n", dlerror());

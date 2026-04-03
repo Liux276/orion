@@ -1,0 +1,176 @@
+Name,Profile,Memory_footprint,SM_usage,Duration
+Conv,1,0,784,980000
+BatchNorm,0,0,683,431552
+void at::native::vectorized_elementwise_kernel,-1,0,4182,419744
+void at::native::(anonymous namespace)::max_pool_forward_nchw,-1,0,4182,386528
+Conv,0,0,342,115296
+BatchNorm,0,0,683,108320
+void at::native::vectorized_elementwise_kernel,-1,0,1046,106176
+void cutlass_cudnn_infer::Kernel<cutlass_tensorop_s1688fprop_optimized_tf32_128x64_32x3_nhwc_align4>(T1::Params),0,0,392,312864
+BatchNorm,0,0,683,108448
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105888
+Conv,0,0,1366,584320
+BatchNorm,0,0,2731,424736
+Conv,0,0,1366,357248
+BatchNorm,0,0,2731,424640
+void at::native::vectorized_elementwise_kernel,0,0,4182,632480
+void at::native::vectorized_elementwise_kernel,-1,0,4182,419776
+Conv,0,0,342,272352
+BatchNorm,0,0,683,108672
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105824
+void cutlass_cudnn_infer::Kernel<cutlass_tensorop_s1688fprop_optimized_tf32_128x64_32x3_nhwc_align4>(T1::Params),0,0,392,311264
+BatchNorm,0,0,683,108992
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105280
+Conv,0,0,1366,581664
+BatchNorm,0,0,2731,423840
+void at::native::vectorized_elementwise_kernel,0,0,4182,627744
+void at::native::vectorized_elementwise_kernel,-1,0,4182,418432
+Conv,0,0,342,271648
+BatchNorm,0,0,683,108896
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105248
+void cutlass_cudnn_infer::Kernel<cutlass_tensorop_s1688fprop_optimized_tf32_128x64_32x3_nhwc_align4>(T1::Params),0,0,392,314016
+BatchNorm,0,0,683,108736
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105024
+Conv,0,0,1366,584320
+BatchNorm,0,0,2731,423392
+void at::native::vectorized_elementwise_kernel,0,0,4182,628224
+void at::native::vectorized_elementwise_kernel,-1,0,4182,419936
+Conv,0,0,683,404000
+BatchNorm,0,0,1366,214208
+void at::native::vectorized_elementwise_kernel,-1,0,2091,210048
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,328064
+BatchNorm,0,0,683,56352
+void at::native::vectorized_elementwise_kernel,-1,0,523,52896
+Conv,0,0,2091,504832
+BatchNorm,0,0,2731,212320
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,392,349536
+BatchNorm,0,0,2731,212736
+void at::native::vectorized_elementwise_kernel,0,0,2091,315968
+void at::native::vectorized_elementwise_kernel,-1,0,2091,210112
+Conv,0,0,4182,656608
+BatchNorm,0,0,683,56288
+void at::native::vectorized_elementwise_kernel,-1,0,523,52800
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,297792
+BatchNorm,0,0,683,56640
+void at::native::vectorized_elementwise_kernel,-1,0,523,53120
+Conv,0,0,683,342624
+BatchNorm,0,0,2731,212096
+void at::native::vectorized_elementwise_kernel,0,0,2091,315552
+void at::native::vectorized_elementwise_kernel,-1,0,2091,210368
+Conv,0,0,171,194944
+BatchNorm,0,0,683,56256
+void at::native::vectorized_elementwise_kernel,-1,0,523,52960
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,297632
+BatchNorm,0,0,683,56288
+void at::native::vectorized_elementwise_kernel,-1,0,523,53344
+Conv,0,0,683,344640
+BatchNorm,0,0,2731,212096
+void at::native::vectorized_elementwise_kernel,0,0,2091,314240
+void at::native::vectorized_elementwise_kernel,-1,0,2091,211072
+Conv,0,0,171,194048
+BatchNorm,0,0,683,56672
+void at::native::vectorized_elementwise_kernel,-1,0,523,53568
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,297632
+BatchNorm,0,0,683,57056
+void at::native::vectorized_elementwise_kernel,-1,0,523,52960
+Conv,0,0,683,342688
+BatchNorm,0,0,2731,214240
+void at::native::vectorized_elementwise_kernel,0,0,2091,315296
+void at::native::vectorized_elementwise_kernel,-1,0,2091,210336
+Conv,0,0,342,361952
+BatchNorm,0,0,1366,108224
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105056
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,49,366944
+BatchNorm,0,0,342,32512
+void at::native::vectorized_elementwise_kernel,-1,0,262,27296
+Conv,0,0,1067,400992
+BatchNorm,0,0,1366,115904
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,196,306240
+BatchNorm,0,0,1366,116128
+void at::native::vectorized_elementwise_kernel,0,0,1046,158208
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105088
+Conv,0,0,2731,533824
+BatchNorm,0,0,342,32160
+void at::native::vectorized_elementwise_kernel,-1,0,262,26240
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,315104
+BatchNorm,0,0,342,32256
+void at::native::vectorized_elementwise_kernel,-1,0,262,27296
+Conv,0,0,342,315776
+BatchNorm,0,0,1366,115584
+void at::native::vectorized_elementwise_kernel,0,0,1046,157472
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105760
+Conv,0,0,86,238112
+BatchNorm,0,0,342,32192
+void at::native::vectorized_elementwise_kernel,-1,0,262,27520
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,315136
+BatchNorm,0,0,342,32352
+void at::native::vectorized_elementwise_kernel,-1,0,262,27168
+Conv,0,0,342,316672
+BatchNorm,0,0,1366,115872
+void at::native::vectorized_elementwise_kernel,0,0,1046,158944
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105728
+Conv,0,0,86,234880
+BatchNorm,0,0,342,32416
+void at::native::vectorized_elementwise_kernel,-1,0,262,27264
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,315776
+BatchNorm,0,0,342,32224
+void at::native::vectorized_elementwise_kernel,-1,0,262,26752
+Conv,0,0,342,314976
+BatchNorm,0,0,1366,116032
+void at::native::vectorized_elementwise_kernel,0,0,1046,157728
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105344
+Conv,0,0,86,236352
+BatchNorm,0,0,342,32864
+void at::native::vectorized_elementwise_kernel,-1,0,262,27712
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,316288
+BatchNorm,0,0,342,32128
+void at::native::vectorized_elementwise_kernel,-1,0,262,27072
+Conv,0,0,342,318048
+BatchNorm,0,0,1366,115680
+void at::native::vectorized_elementwise_kernel,0,0,1046,158336
+void at::native::vectorized_elementwise_kernel,-1,0,1046,106112
+Conv,0,0,86,236768
+BatchNorm,0,0,342,32256
+void at::native::vectorized_elementwise_kernel,-1,0,262,26592
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,98,315552
+BatchNorm,0,0,342,32256
+void at::native::vectorized_elementwise_kernel,-1,0,262,27136
+Conv,0,0,342,318048
+BatchNorm,0,0,1366,115840
+void at::native::vectorized_elementwise_kernel,0,0,1046,157632
+void at::native::vectorized_elementwise_kernel,-1,0,1046,105920
+Conv,0,0,171,450240
+BatchNorm,0,0,683,60288
+void at::native::vectorized_elementwise_kernel,-1,0,523,52768
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,104,319200
+BatchNorm,0,0,683,26752
+void at::native::vectorized_elementwise_kernel,-1,0,131,13856
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,104,159232
+BatchNorm,0,0,2731,91968
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,104,270656
+BatchNorm,0,0,2731,91328
+void at::native::vectorized_elementwise_kernel,0,0,523,79008
+void at::native::vectorized_elementwise_kernel,-1,0,523,52992
+Conv,0,0,10923,1106592
+BatchNorm,0,0,683,26784
+void at::native::vectorized_elementwise_kernel,-1,0,131,13856
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,104,312672
+BatchNorm,0,0,683,26784
+void at::native::vectorized_elementwise_kernel,-1,0,131,13952
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,104,158816
+BatchNorm,0,0,2731,91264
+void at::native::vectorized_elementwise_kernel,0,0,523,79264
+void at::native::vectorized_elementwise_kernel,-1,0,523,53888
+Conv,0,0,5462,658656
+BatchNorm,0,0,683,26912
+void at::native::vectorized_elementwise_kernel,-1,0,131,13888
+sm80_xmma_fprop_implicit_gemm_indexed_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,104,311808
+BatchNorm,0,0,683,26752
+void at::native::vectorized_elementwise_kernel,-1,0,131,13920
+sm80_xmma_fprop_implicit_gemm_tf32f32_tf32f32_f32_nhwckrsc_nchw_tilesize128x128x16_stage4_warpsize2x2x1_g1_tensor16x8x8_alignc4_execute_kernel_cudnn_infer,0,0,104,158880
+BatchNorm,0,0,2731,91360
+void at::native::vectorized_elementwise_kernel,0,0,523,79328
+void at::native::vectorized_elementwise_kernel,-1,0,523,52704
+void at::native::reduce_kernel,0,0,1366,64448
+void at::native::elementwise_kernel,-1,0,11,5760
+ampere_sgemm_128x32_tn,0,0,32,36992

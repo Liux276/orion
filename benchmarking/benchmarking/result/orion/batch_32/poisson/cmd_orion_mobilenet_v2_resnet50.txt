@@ -1,0 +1,1 @@
+python /data1/home/jiangjz/code/orion_lx/benchmarking/launch_jobs.py --algo orion --config_file /data1/home/jiangjz/code/orion_lx/benchmarking/benchmarking/result/orion/batch_32/poisson/mobilenet_v2_resnet50.json

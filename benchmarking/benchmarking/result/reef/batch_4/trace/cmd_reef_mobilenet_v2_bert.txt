@@ -1,0 +1,1 @@
+python /data1/home/jiangjz/code/orion_lx/benchmarking/launch_jobs.py --algo reef --config_file /data1/home/jiangjz/code/orion_lx/benchmarking/benchmarking/result/reef/batch_4/trace/mobilenet_v2_bert.json
